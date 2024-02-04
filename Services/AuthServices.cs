@@ -1,4 +1,5 @@
 ﻿using API.JwtAuth.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -8,6 +9,7 @@ namespace API.JwtAuth.Services
 {
     public class AuthServices
     {
+        [NonAction]
         public string Create(User user)
         {
             var handler = new JwtSecurityTokenHandler();
@@ -30,6 +32,7 @@ namespace API.JwtAuth.Services
             return handler.WriteToken(token);
         }
 
+        [NonAction]
         public static ClaimsIdentity CreateClaims(User user)
         {
             var claimsIdentity = new ClaimsIdentity();
@@ -38,7 +41,7 @@ namespace API.JwtAuth.Services
             claimsIdentity.AddClaim(new(ClaimTypes.Email, user.Email));
 
             foreach (var role in user.Roles)
-                claimsIdentity.AddClaim(new(ClaimTypes.Role, role.Id.ToString()));
+                claimsIdentity.AddClaim(new(ClaimTypes.Role, role.Name));
 
 
             return claimsIdentity;

@@ -1,11 +1,13 @@
 using API.JwtAuth.Models;
 using API.JwtAuth.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.JwtAuth.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [AllowAnonymous]
+    [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly AuthServices _authService;
